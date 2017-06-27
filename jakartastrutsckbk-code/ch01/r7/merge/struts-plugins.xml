@@ -1,0 +1,11 @@
+  <plug-in className="org.apache.struts.plugins.ModuleConfigVerifier"/>
+
+  <plug-in className="org.apache.struts.webapp.example.memory.MemoryDatabasePlugIn">
+    <set-property property="pathname" value="/WEB-INF/database.xml"/>
+  </plug-in>
+
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property property="pathnames"
+                     value="/WEB-INF/validator-rules.xml,
+                            /WEB-INF/validation.xml"/>
+  </plug-in>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<form-validation>
+
+    <formset>
+        <form name="LoginForm">
+            <field property="username"
+                    depends="required">
+                <arg key="prompt.username"/>
+            </field>
+            <field property="password"
+                    depends="required,minlength,maxlength">
+                <arg position="0" key="prompt.password"/>
+                <arg key="${var:minlength}" name="minlength"
+                   position="1" resource="false"/>
+                <arg key="${var:maxlength}" name="maxlength"
+                   position="1" resource="false"/>
+                <var>
+                    <var-name>minlength</var-name>
+                    <var-value>3</var-value>
+                </var>
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>16</var-value>
+                </var>
+            </field>
+        </form>
+    </formset>
+</form-validation>

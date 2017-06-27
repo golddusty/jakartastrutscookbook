@@ -1,0 +1,34 @@
+#*
+ * These are comments and will be ignored by the Velocity engine.
+ *#
+<html>
+<head>
+<title>$text.get("index.title")</title>
+<link rel="stylesheet" type="text/css" href="base.css" />
+</head>
+
+<h3>$text.get("index.heading")</h3>
+<ul>
+<li>
+    <a href="$link.setAction('/EditRegistration').addQueryData('action','Create')">
+        $text.get("index.registration")
+    </a>
+<li>
+    <a href="$link.setAction('/Logon')">
+        $text.get("index.logon")
+    </a>
+</ul>
+
+<h3>Language Options</h3>
+<ul>
+<li><a href="$link.setAction('/Locale').addQueryData('language','en')">English</a></li>
+<li><a href="$link.setAction('/Locale').addQueryData('language','ja')">Japanese</a></li>
+<li><a href="$link.setAction('/Locale').addQueryData('language','ru')">Russian</a></li>
+</ul>
+
+<hr />
+
+<p><a href="$link.setAction('/Tour')">$text.get("index.tour")</a></p>
+
+</body>
+</html>

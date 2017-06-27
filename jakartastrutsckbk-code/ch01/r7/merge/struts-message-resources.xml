@@ -1,0 +1,7 @@
+  <message-resources
+    parameter="org.apache.struts.webapp.example.ApplicationResources"/>
+
+  <message-resources
+    parameter="org.apache.struts.webapp.example.AlternateApplicationResources"
+    key="alternate">
+  </message-resources>

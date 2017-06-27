@@ -1,0 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<html>
+<head>
+<title>Struts Cookbook Chapter 11 : Security Filter</title>
+</head>
+<body>
+<font color="red">Oops -- an error occured processing your login. <html:link action="/reg/Main">Please try again.</html:link></font>
+</body>
+</html>

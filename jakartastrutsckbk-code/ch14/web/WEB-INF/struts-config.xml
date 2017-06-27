@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+    <form-beans>
+      <form-bean name="LocaleForm" type="org.apache.struts.action.DynaActionForm">
+        <form-property name="language" type="java.lang.String"/>
+        <form-property name="country" type="java.lang.String"/>
+        <form-property name="variant" type="java.lang.String"/>
+        <form-property name="page" type="java.lang.String"/>
+      </form-bean>
+    </form-beans>
+
+	<global-forwards>
+		<forward name="home" path="/index.jsp" 
+			redirect="true"/>
+		<forward name="success" redirect="true" path="/index.jsp"/> 
+	</global-forwards>
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <action    path="/ChangeLocale"
+               name="LocaleForm"
+              scope="request"
+               type="com.oreilly.strutsckbk.ch12.ChangeLocaleAction"/>
+ 
+  </action-mappings>
+ 
+    <controller locale="true"/>
+
+  <message-resources 
+      parameter="ApplicationResources">
+  </message-resources>
+
+    <!-- Plug Ins -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames"
+                         value="/WEB-INF/validator-rules.xml,
+                                /WEB-INF/validation.xml"/>
+    </plug-in>
+</struts-config>

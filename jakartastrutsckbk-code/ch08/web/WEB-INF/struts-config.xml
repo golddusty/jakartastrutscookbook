@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+    <form-beans>
+      <form-bean name="MyLoginForm" type="com.oreilly.strutsckbk.ch08.MyLoginForm"/>
+      <form-bean name="LoginForm" type="org.apache.struts.validator.DynaValidatorForm">
+        <form-property name="username" type="java.lang.String"/>
+        <form-property name="password" type="java.lang.String"/>
+      </form-bean>
+      <form-bean name="ValidationTestForm" type="org.apache.struts.validator.DynaValidatorForm">
+        <form-property name="ssn" type="java.lang.String"/>
+        <form-property name="married" type="java.lang.Boolean"/>
+        <form-property name="spouseName" type="java.lang.String"/>
+        <form-property name="city" type="java.lang.String"/>
+        <form-property name="state" type="java.lang.String"/>
+        <form-property name="zipCode" type="java.lang.String"/>
+        <form-property name="webPage" type="java.lang.String"/>
+        <form-property name="date1" type="java.lang.String"/>
+        <form-property name="date2" type="java.lang.String"/>
+        <form-property name="mychkbox" type="java.lang.Boolean"/>
+        <form-property name="mydate" type="java.lang.String"/>
+      </form-bean>
+      <form-bean name="RegistrationForm" type="org.apache.struts.validator.DynaValidatorForm">
+        <form-property name="emailAddress" type="java.lang.String"/>
+        <form-property name="password" type="java.lang.String"/>
+        <form-property name="password2" type="java.lang.String"/>
+      </form-bean>
+      <form-bean name="LocalizedForm" type="org.apache.struts.validator.DynaValidatorForm">
+        <form-property name="ssn" type="java.lang.String"/>
+        <form-property name="hourlyRate" type="java.lang.String"/>
+      </form-bean>
+      <form-bean name="WizardForm" type="com.oreilly.strutsckbk.ch08.WizardForm"/>
+      <!--
+      <form-bean name="WizardForm" type="org.apache.struts.validator.DynaValidatorForm">
+        <form-property name="username" type="java.lang.String"/>
+        <form-property name="password" type="java.lang.String"/>
+        <form-property name="ssn" type="java.lang.String"/>
+        <form-property name="page" type="java.lang.Integer"/>
+      </form-bean>
+      -->
+      <form-bean name="MultilistForm" type="org.apache.struts.validator.DynaValidatorForm">
+          <form-property name="languages" type="java.lang.String[]"/>
+      </form-bean>
+      <form-bean name="IndexedListForm" type="org.apache.struts.validator.DynaValidatorForm">
+          <form-property name="orders" type="com.oreilly.strutsckbk.ch08.OrderLine[]" size="5"/>
+          <form-property name="discountCodes" type="java.lang.String[]" size="3"/>
+      </form-bean>
+    </form-beans>
+
+	<global-forwards>
+		<forward name="home" path="/index.jsp" 
+			redirect="true"/>
+		<forward name="success" path="/index.jsp" 
+			redirect="true"/>
+		<forward name="login" path="/Login.do" 
+			contextRelative="true" redirect="true"/>
+		<forward name="logout" path="/Logout.do" 
+			contextRelative="true" redirect="true"/>
+	</global-forwards>
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <action    path="/Login"
+               type="com.oreilly.strutsckbk.ch08.LoginAction"
+              scope="request"
+               name="MyLoginForm"
+            validate="true"
+              input="/login.jsp">
+        <forward name="success" path="/login_success.jsp"/>
+    </action>
+    <action    path="/Logout"
+               type="com.oreilly.strutsckbk.ch08.LogoutAction"/>
+
+    <!-- Validation Tests -->
+    <action    path="/ProcessRegistration"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/validation_success.jsp"
+              scope="request"
+               name="RegistrationForm"
+            validate="true"
+              input="/registration.jsp">
+    </action>
+
+    <action    path="/ProcessValidationTest"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/validation_success.jsp"
+              scope="request"
+               name="ValidationTestForm"
+            validate="true"
+              input="/validation_test.jsp">
+    </action>
+
+    <action    path="/ProcessMultilistTest"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/validation_success.jsp"
+              scope="request"
+               name="MultilistForm"
+            validate="true"
+              input="/multilist_test.jsp">
+    </action>
+
+    <action    path="/ProcessIndexedListTest"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/indexed_list_success.jsp"
+              scope="request"
+               name="IndexedListForm"
+            validate="true"
+              input="/indexed_list_test.jsp">
+    </action>
+
+    <action    path="/ProcessIndexedListTest2"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/indexed_list_success.jsp"
+              scope="request"
+               name="IndexedListForm"
+            validate="true"
+              input="/indexed_list_test2.jsp">
+    </action>
+
+    <action    path="/ProcessLocalizedValidationTest"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/validation_success.jsp"
+              scope="request"
+               name="LocalizedForm"
+            validate="true"
+              input="/localization_test.jsp">
+    </action>
+
+    <!-- Wizard mappings -->
+    <!-- Step 1 -->
+    <action    path="/ViewStep1"
+               name="WizardForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+             validate="false"
+          parameter="/step1.jsp"/>
+    <action    path="/ProcessStep1"
+               name="WizardForm"
+              scope="session"
+             validate="true"
+                input="/step1.jsp"
+               type="com.oreilly.strutsckbk.ch08.WizardLookupDispatchAction"
+          parameter="methodToCall">
+        <forward name="next" path="/ViewStep2.do"/>
+    </action>
+
+    <!-- Step 2 -->
+    <action    path="/ViewStep2"
+               name="WizardForm"
+              scope="session"
+             validate="false"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/step2.jsp"/>
+    <action    path="/ProcessStep2"
+               name="WizardForm"
+              scope="session"
+             validate="true"
+                input="/step2.jsp"
+               type="com.oreilly.strutsckbk.ch08.WizardLookupDispatchAction"
+          parameter="methodToCall">
+        <forward name="previous" path="/ViewStep1.do"/>
+        <forward name="next" path="/ViewStep3.do"/>
+    </action>
+
+    <!-- Step 3 -->
+    <action    path="/ViewStep3"
+               name="WizardForm"
+              scope="session"
+             validate="false"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/step3.jsp"/>
+    <action    path="/ProcessStep3"
+               name="WizardForm"
+              scope="session"
+             validate="true"
+                input="/step3.jsp"
+               type="com.oreilly.strutsckbk.ch08.WizardLookupDispatchAction"
+          parameter="methodToCall">
+        <forward name="previous" path="/ViewStep2.do"/>
+        <forward name="finish" path="/wizard_done.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  <message-resources 
+      parameter="ApplicationResources">
+  </message-resources>
+
+    <!-- Plug Ins -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames"
+                         value="/WEB-INF/validator-rules.xml,
+                                /WEB-INF/validation.xml"/>
+        <set-property property="stopOnFirstError"
+                         value="true"/>
+    </plug-in>
+</struts-config>

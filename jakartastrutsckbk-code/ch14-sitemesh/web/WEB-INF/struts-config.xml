@@ -1,0 +1,29 @@
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd" >
+<struts-config>
+
+    <global-forwards>
+        <forward name="main" path="/main.do"/>
+    </global-forwards>
+
+    <!--  Action Mapping Definitions  -->
+    <action-mappings>
+        <action path="/main" 
+                type="org.apache.struts.actions.ForwardAction" 
+                parameter="/WEB-INF/jsps/main.jsp"
+        />
+        <action path="/test" 
+                type="org.apache.struts.actions.ForwardAction" 
+                parameter="/WEB-INF/jsps/test.jsp"
+        />
+        <action path="/summary" 
+                type="org.apache.struts.actions.ForwardAction" 
+                parameter="/WEB-INF/jsps/summary.jsp"
+        />
+    </action-mappings>
+
+    <!-- message resources -->
+    <message-resources parameter="ApplicationResources"/>
+
+</struts-config>

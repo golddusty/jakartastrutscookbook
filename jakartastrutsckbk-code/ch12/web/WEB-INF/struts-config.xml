@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+    <form-beans>
+      <form-bean name="LocaleForm" type="org.apache.struts.action.DynaActionForm">
+        <form-property name="language" type="java.lang.String"/>
+        <form-property name="country" type="java.lang.String"/>
+        <form-property name="variant" type="java.lang.String"/>
+        <form-property name="page" type="java.lang.String"/>
+      </form-bean>
+      <form-bean name="TestForm" type="org.apache.struts.action.DynaActionForm">
+        <form-property name="field1" type="java.lang.String"/>
+        <form-property name="field2" type="java.lang.String"/>
+        <form-property name="formFile" type="org.apache.struts.upload.FormFile"/>
+      </form-bean>
+    </form-beans>
+
+	<global-forwards>
+		<forward name="home" path="/index.jsp" 
+			redirect="true"/>
+		<forward name="success" redirect="true" path="/index.jsp"/> 
+	</global-forwards>
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <action    path="/Welcome"
+               type="org.apache.struts.actions.ForwardAction"
+            parameter="/index.jsp"/>
+
+    <action    path="/ViewLocalizedData"
+               type="com.oreilly.strutsckbk.ch12.ViewLocalizedDataAction">
+        <forward name="success" path="/text_images.jsp"/>
+    </action>
+
+    <action    path="/ChangeLocale"
+               name="LocaleForm"
+              scope="request"
+               type="com.oreilly.strutsckbk.ch12.ChangeLocaleAction"/>
+ 
+    <action    path="/ProcessTestForm"
+               name="TestForm"
+              scope="request"
+               type="org.apache.struts.actions.ForwardAction"
+            parameter="/view_test_form.jsp"/>
+
+  </action-mappings>
+ 
+    <controller locale="false"/>
+
+  <message-resources 
+      parameter="ApplicationResources">
+  </message-resources>
+
+  <message-resources key="alt"
+      parameter="AlternateResources">
+  </message-resources>
+    <!-- Plug Ins -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames"
+                         value="/WEB-INF/validator-rules.xml,
+                                /WEB-INF/validation.xml"/>
+    </plug-in>
+</struts-config>

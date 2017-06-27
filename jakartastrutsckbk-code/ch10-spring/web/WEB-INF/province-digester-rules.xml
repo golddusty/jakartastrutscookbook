@@ -1,0 +1,8 @@
+<digester-rules>
+    <object-create-rule pattern="provinces" classname="java.util.ArrayList"/>
+    <pattern value="provinces/province">
+        <object-create-rule classname="com.oreilly.strutsckbk.ch10.Province" />
+        <set-properties-rule />
+        <set-next-rule methodname="add" />
+      </pattern>
+</digester-rules> 

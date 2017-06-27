@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+    <!-- Tiles used for Recipe 14.1, 14.2, and 14.3 -->
+    <!-- A base Tile -->
+    <definition name="mainLayoutDef2" path="/layouts/mainLayout.jsp">
+        <put name="title" value="Struts Cookbook - Chapter 14 : Tiles"/>
+        <put name="header" value="/common/header.jsp"/>
+        <put name="navbar" value="/common/navbar2.jsp"/>
+        <put name="body"   type="string"/>
+        <put name="news"   value="/common/news.html"/>
+        <put name="footer" value="/common/footer.jsp"/>        
+    </definition>
+
+    <!-- Extensions of the base mainLayoutDef tile -->
+    <definition name=".start" extends="mainLayoutDef2">
+        <put name="title" value="Start Page"/>
+        <put name="body"  value="/pages/pageStart.jsp"/>
+    </definition>
+
+    <definition name=".pageOne" extends="mainLayoutDef2">
+        <put name="title" value=" Page One"/>
+        <put name="body"  value="/pages/pageOne.jsp"/>
+    </definition>
+        
+    <definition name=".pageTwo" extends="mainLayoutDef2">
+        <put name="title" value="Page Two"/>
+        <put name="body"  value="/pages/pageTwo.jsp"/>
+    </definition>
+    <definition name=".pageThree" extends="mainLayoutDef2">
+        <put name="title" value="Page Three"/>
+        <put name="body"  value="/pages/pageThree.jsp"/>
+    </definition>
+    
+    <!-- Tiles used for Tabbed pane recipe -->
+    <definition name="example.tabs" path="/layouts/tabsLayout.jsp">
+        <put name="selectedIndex" value="0"/>
+        <put name="parameterName" value="selected"/>
+        <putList name="tabList">
+            <item value="Page One" link="/pages/pageOne.jsp"
+                 classtype="org.apache.struts.tiles.beans.SimpleMenuItem"/>
+            <item value="Page Two" link="/pages/pageTwo.jsp"
+                 classtype="org.apache.struts.tiles.beans.SimpleMenuItem"/>
+            <item value="Page Three" link="/pages/pageThree.jsp"
+                 classtype="org.apache.struts.tiles.beans.SimpleMenuItem"/>
+        </putList>
+    </definition>
+
+    <!-- Tabbed layout that uses nested components -->
+    <definition name="example.tabs2" path="/layouts/tabsLayout.jsp">
+        <put name="selectedIndex" value="0"/>
+        <put name="parameterName" value="selected"/>
+        <putList name="tabList">
+            <item value="Page One" link=".pageOne"
+                 classtype="org.apache.struts.tiles.beans.SimpleMenuItem"/>
+            <item value="Page Two" link=".pageTwo"
+                 classtype="org.apache.struts.tiles.beans.SimpleMenuItem"/>
+            <item value="Page Three" link=".pageThree"
+                 classtype="org.apache.struts.tiles.beans.SimpleMenuItem"/>
+        </putList>
+    </definition>
+</tiles-definitions>

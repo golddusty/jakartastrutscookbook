@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="LazyForm" type="lib.framework.struts.LazyValidatorForm"/>
+    <form-bean name="ListForm" type="com.oreilly.strutsckbk.ch05.ListForm"/>
+    <form-bean name="MapForm" type="com.oreilly.strutsckbk.ch05.MapForm"/>
+    <form-bean name="MyForm" type="org.apache.struts.action.DynaActionForm">
+      <form-property name="firstName" type="java.lang.String"
+                    initial="George"/>
+      <form-property name="lastName" type="java.lang.String"
+                    initial="Burdell"/>
+      <form-property name="javaCoder" type="java.lang.Boolean"
+                    initial="true"/>
+      <form-property name="friend" type="java.lang.String[]"
+                     size="3"
+                  initial="Larry Moe Curly"/>
+    </form-bean>
+    <form-bean name="EmployeeForm" type="com.oreilly.strutsckbk.ch05.EmployeeForm"/>
+    <form-bean name="EmployeeDynaForm" type="org.apache.struts.action.DynaActionForm">
+      <form-property name="create" type="java.lang.Boolean"/>
+      <form-property name="employeeId" type="java.lang.String"/>
+      <form-property name="firstName" type="java.lang.String"/>
+      <form-property name="lastName" type="java.lang.String"/>
+      <form-property name="salary" type="java.lang.String"/>
+      <form-property name="married" type="java.lang.Boolean"/>
+      <form-property name="hireDateDisplay" type="java.lang.String"/>
+    </form-bean>
+  </form-beans>
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <action path="/ViewEmpForm"
+            type="com.oreilly.strutsckbk.ch05.ViewEmpFormAction">
+        <forward name="success" path="/edit_emp.jsp"/>
+    </action>
+
+    <action    path="/ProcessForm"
+               name="MyForm"
+              scope="request"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/form_test.jsp"/>
+    <action    path="/ProcessListForm"
+               name="ListForm"
+              scope="request"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/list_form_test.jsp"/>
+    <action    path="/ProcessMapForm"
+               name="MapForm"
+              scope="request"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/map_form_test.jsp"/>
+    <action    path="/ProcessLazyForm"
+               name="LazyForm"
+              scope="request"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/lazy_form_test.jsp"/>
+    <action    path="/ViewUsers"
+               type="com.oreilly.strutsckbk.ch05.ViewUsersAction">
+        <forward name="success" path="/view_users.jsp"/>
+    </action>
+    <action    path="/SaveEmployee"
+               name="EmployeeDynaForm"
+              scope="request"
+               type="com.oreilly.strutsckbk.ch05.SaveEmployeeAction">
+        <forward name="success" path="/view_emp.jsp"/>
+    </action>
+    <action    path="/CreateEmployee"
+               name="EmployeeDynaForm"
+              scope="request"
+               type="com.oreilly.strutsckbk.ch05.SaveEmployeeAction">
+        <forward name="success" path="/view_emp.jsp"/>
+    </action>
+    <action    path="/UpdateEmployee"
+               name="EmployeeDynaForm"
+              scope="request"
+               type="com.oreilly.strutsckbk.ch05.SaveEmployeeAction">
+        <forward name="success" path="/view_emp.jsp"/>
+    </action>
+  <!-- Mappings that use a Formdef form -->
+    <action    path="/SaveEmployeeFd"
+               name="EmployeeFdForm"
+              scope="request"
+           validate="true"
+              input="/view_emp_fd.jsp"
+               type="com.oreilly.strutsckbk.ch05.SaveEmployeeFdAction">
+        <forward name="success" path="/view_emp_fd.jsp"/>
+    </action>
+  
+  </action-mappings>
+   <message-resources 
+     parameter="ApplicationResources"/>
+<!--
+   
+   <plug-in className="com.oreilly.strutsckbk.ch04.ConstantsPlugin"/>
+   <plug-in className="net.sf.navigator.menu.MenuPlugIn">
+     <set-property property="menuConfig" 
+       value="/WEB-INF/menu-config.xml"/>
+   </plug-in>
+   -->
+    <plug-in className="formdef.plugin.FormDefPlugIn">
+        <set-property property="defnames"
+            value="/WEB-INF/form-defs.xml"/>
+    </plug-in>
+</struts-config>

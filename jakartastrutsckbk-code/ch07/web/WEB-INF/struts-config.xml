@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+<struts-config>
+    <form-beans>
+      <form-bean name="TestForm" type="org.apache.struts.action.DynaActionForm">
+        <form-property name="name" type="java.lang.String"/>
+      </form-bean>
+      <form-bean name="LoginForm" type="org.apache.struts.action.DynaActionForm">
+        <form-property name="name" type="java.lang.String"/>
+      </form-bean>
+      <form-bean name="UploadForm" type="com.oreilly.strutsckbk.ch07.UploadForm"/>
+      <form-bean name="WizardForm" type="org.apache.struts.action.DynaActionForm">
+        <form-property name="data" type="java.lang.String"/>
+      </form-bean>
+      <!-- Forms used in wildcard mapping examples -->
+      <!--
+      <form-bean name="EmployeeForm" type="com.oreilly.strutsckbk.ch07.EmployeeForm"/>
+      -->
+      <form-bean name="EmployeeForm" type="org.apache.struts.action.DynaActionForm">
+        <form-property name="firstName" type="java.lang.String"/>
+        <form-property name="lastName" type="java.lang.String"/>
+        <form-property name="ssn" type="java.lang.String"/>
+      </form-bean>
+      
+      <form-bean name="VendorForm" type="org.apache.struts.action.DynaActionForm">
+        <form-property name="name" type="java.lang.String"/>
+        <form-property name="taxId" type="java.lang.String"/>
+      </form-bean>
+    </form-beans>
+
+	<global-forwards>
+		<forward name="home" path="/index.jsp" 
+			redirect="true"/>
+	    <forward name="goToModule1" module="/mod1" path="/Mod1Main.do"/>
+		<forward name="success" path="/index.jsp" 
+			redirect="true"/>
+		<forward name="login" path="/Login.do" 
+			contextRelative="true" redirect="true"/>
+		<forward name="logout" path="/Logout.do" 
+			contextRelative="true" redirect="true"/>
+	</global-forwards>
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <!-- Switch Module Action -->
+    <action    path="/SwitchModule"
+               type="org.apache.struts.actions.SwitchAction"/>
+
+    <action    path="/LoadData"
+               type="com.oreilly.strutsckbk.ch07.LoadDataAction"
+              scope="request"
+               name="TestForm">
+        <forward name="success" path="/show_data_form.jsp"/>
+    </action>
+    <action    path="/SaveData"
+               name="TestForm"
+              scope="request"
+              input="/LoadData.do"
+               type="com.oreilly.strutsckbk.ch07.SaveDataAction">
+        <forward name="success" path="/data_saved.jsp"/>
+    </action>
+    <action    path="/Login"
+               type="com.oreilly.strutsckbk.ch07.LoginAction"
+              scope="request"
+               name="LoginForm">
+    </action>
+    <action    path="/Logout"
+               type="com.oreilly.strutsckbk.ch07.LogoutAction"/>
+
+    <!-- Wizard mappings -->
+    <!-- Step 1 -->
+    <action    path="/ViewStep1"
+               name="WizardForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/step1.jsp"/>
+    <action    path="/ProcessStep1"
+               name="WizardForm"
+              scope="session"
+               type="com.oreilly.strutsckbk.ch07.WizardLookupDispatchAction"
+          parameter="methodToCall">
+        <forward name="next" path="/ViewStep2.do"/>
+    </action>
+
+    <!-- Step 2 -->
+    <action    path="/ViewStep2"
+               name="WizardForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/step2.jsp"/>
+    <action    path="/ProcessStep2"
+               name="WizardForm"
+              scope="session"
+               type="com.oreilly.strutsckbk.ch07.WizardLookupDispatchAction"
+          parameter="methodToCall">
+        <forward name="previous" path="/ViewStep1.do"/>
+        <forward name="next" path="/ViewStep3.do"/>
+    </action>
+
+    <!-- Step 3 -->
+    <action    path="/ViewStep3"
+               name="WizardForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/step3.jsp"/>
+    <action    path="/ProcessStep3"
+               name="WizardForm"
+              scope="session"
+               type="com.oreilly.strutsckbk.ch07.WizardLookupDispatchAction"
+          parameter="methodToCall">
+        <forward name="previous" path="/ViewStep2.do"/>
+        <forward name="finish" path="/wizard_done.jsp"/>
+    </action>
+
+    <!-- File handling -->
+    <action    path="/ProcessUpload"
+               type="com.oreilly.strutsckbk.ch07.ProcessUploadAction"
+               name="UploadForm"
+              scope="request">
+      <forward name="success" path="/upload_success.jsp"/>
+    </action>
+    
+    <!-- Wildcard Mapping -->
+    <action    
+        path="/Edit*"
+        type="com.oreilly.strutsckbk.ch07.Edit{1}Action"
+        name="{1}Form"
+        scope="request"
+        validate="false">
+    <forward 
+        name="failure" 
+        path="/index.jsp"/>
+    <forward 
+        name="success" 
+        path="/edit_{1}.jsp"/>
+    </action>
+
+    <action    
+        path="/Save*"
+        type="com.oreilly.strutsckbk.ch07.Save{1}Action"
+        name="{1}Form"
+        scope="request"
+        validate="true"
+        input="edit_{1}.jsp">
+    <forward 
+        name="failure" 
+        path="/index.jsp"/>
+    <forward 
+        name="success" 
+        path="/saved_{1}.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  
+  <message-resources 
+      parameter="ApplicationResources">
+  </message-resources>
+<!--
+   
+   <plug-in className="com.oreilly.strutsckbk.ch04.ConstantsPlugin"/>
+   <plug-in className="net.sf.navigator.menu.MenuPlugIn">
+     <set-property property="menuConfig" 
+       value="/WEB-INF/menu-config.xml"/>
+   </plug-in>
+   -->
+</struts-config>

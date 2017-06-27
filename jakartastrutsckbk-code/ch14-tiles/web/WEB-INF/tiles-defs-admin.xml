@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+    <definition name="adminLayout" path="/layouts/adminLayout.jsp">
+        <put name="title" value="Struts Cookbook - Chapter 14 : Tiles"/>
+        <put name="body"   type="string"/>
+    </definition>
+
+    <definition name=".start" extends="adminLayout">
+        <put name="title" value="Admin Start Page"/>
+        <put name="body"  value="/pages/adminMain.jsp"/>
+    </definition>
+</tiles-definitions>

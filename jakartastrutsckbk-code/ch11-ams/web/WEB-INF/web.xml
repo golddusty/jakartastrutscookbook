@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app PUBLIC
+	"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+	"http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+	<display-name>Struts Cookbook - Chapter 11 : AMS</display-name>
+    <!-- Uncomment this block to enable automatic login -->
+    <!--
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>
+            com.oreilly.strutsckbk.ch11.ams.AuthenticationFilter
+        </filter-class>
+        <init-param>
+            <param-name>onFailure</param-name>
+            <param-value>/logon.jsp</param-value>
+         </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/reg/*</url-pattern>  
+    </filter-mapping>
+    -->
+
+    <filter>
+        <filter-name>AuthorizationFilter</filter-name>
+        <filter-class>
+            com.oreilly.strutsckbk.ch11.ams.AuthorizationFilter
+        </filter-class>
+        <init-param>
+            <param-name>roles</param-name>
+            <param-value>manager,admin</param-value>
+        </init-param>
+        <init-param>
+            <param-name>onFailure</param-name>
+            <param-value>/index.jsp</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Action Servlet Configuration -->
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/struts-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Action Servlet Mapping -->
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+    <!-- The Welcome File List -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>

@@ -1,0 +1,54 @@
+body, td, p {
+	font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 12px;
+}
+.panelDiv {
+	border-color: black;
+	border-width: 2;
+	border-style: solid;
+	padding: 4px;
+	font-size: 12px;
+	color: black;
+	background: #C0C0C0;
+	height: 450px;
+}
+.panelTitle {
+    font-size: 14px;
+    font-weight: bold;
+}
+.popupDiv {
+   font-family: verdana, arial, helvetica, sans-serif;
+   font-size: 12px;
+   background-color:yellow;
+} 
+#pageTitle {
+	background-color: #C0C0C0;
+	color: black;
+	font-weight: bold;
+	font-size: 14px;
+	border-color: black;
+	border-width: 1;
+	border-style: solid;
+	padding: 3px;
+}
+#header {
+	padding: 5px;
+	font-size: 16px;
+	color: White;
+	font-weight: bold;
+	background-color: Navy;
+	text-align: center;
+	height: 75px;
+}
+#footer {
+	border-color: navy;
+	border-width: 2;
+	border-style: solid;
+	font-size: 10px;
+	color: black;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 10px;
+	background: white;
+}
+

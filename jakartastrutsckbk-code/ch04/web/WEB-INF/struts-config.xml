@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+   <form-beans>
+      <form-bean name="FrameForm" type="org.apache.struts.action.DynaActionForm">
+         <form-property name="message" type="java.lang.String"/>
+      </form-bean> 
+      <form-bean name="CheckboxForm" type="org.apache.struts.action.DynaActionForm">
+         <form-property name="foo" type="java.lang.Boolean"/>
+      </form-bean> 
+      <form-bean name="DateForm" type="org.apache.struts.validator.DynaValidatorForm">
+         <!-- Date 1 -->
+         <form-property name="month" type="java.lang.String"/>
+         <form-property name="day" type="java.lang.String"/>
+         <form-property name="year" type="java.lang.String"/>
+         <!-- Birth Date-->
+         <form-property name="birthDateString" type="java.lang.String"/>
+         <!-- Date 3 -->
+         <form-property name="monthOpt" type="java.lang.String"/>
+         <form-property name="dayOpt" type="java.lang.String"/>
+         <form-property name="yearOpt" type="java.lang.String"/>
+      </form-bean> 
+      <form-bean name="MultiboxForm" type="com.oreilly.strutsckbk.ch04.MultiboxForm"/>
+      <form-bean name="UploadForm" type="com.oreilly.strutsckbk.ch04.UploadForm"/>
+   </form-beans>
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <action path="/ViewForecast"
+            type="com.oreilly.strutsckbk.ch04.ViewForecastAction">
+        <forward name="success" path="/sorted_struts_table.jsp"/>
+    </action>
+
+    <action path="/ViewForecast2"
+            type="com.oreilly.strutsckbk.ch04.ViewForecastAction">
+        <forward name="success" path="/sorted_struts_table2.jsp"/>
+    </action>
+
+    <action    path="/CallFrame1"
+               name="FrameForm"
+              scope="request"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/frame1.jsp"/>
+
+    <action    path="/ProcessCheckbox"
+               type="org.apache.struts.actions.ForwardAction"
+               name="CheckboxForm"
+              scope="request"
+          parameter="/checkbox_test.jsp"/>
+
+    <action    path="/ProcessMultibox"
+               type="org.apache.struts.actions.ForwardAction"
+               name="MultiboxForm"
+              scope="request"
+          parameter="/multibox_test.jsp"/>
+
+    <action    path="/ProcessDate"
+               type="com.oreilly.strutsckbk.ch04.ProcessDateAction"
+               name="DateForm"
+              scope="request">
+      <forward name="success" path="/date_test.jsp"/>
+    </action>
+
+    <action    path="/ProcessUpload"
+               type="com.oreilly.strutsckbk.ch04.ProcessUploadAction"
+               name="UploadForm"
+              scope="request">
+      <forward name="success" path="/upload_success.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  <message-resources 
+     factory="org.apache.struts.util.OJBMessageResourcesFactory"
+     parameter="."
+  />
+  <!--
+   <message-resources 
+     parameter="com.oreilly.strutsckbk.ch04.JscResources">
+   </message-resources>
+   -->
+   <plug-in className="com.oreilly.strutsckbk.ch04.ConstantsPlugin"/>
+   <plug-in className="net.sf.navigator.menu.MenuPlugIn">
+     <set-property property="menuConfig" 
+       value="/WEB-INF/menu-config.xml"/>
+   </plug-in>
+</struts-config>

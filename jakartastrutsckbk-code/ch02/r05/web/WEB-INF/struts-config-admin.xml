@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<!--
+     This is the Struts configuration file for the example application,
+     using the proposed new syntax.
+-->
+
+
+<struts-config>
+   <form-beans>
+      <form-bean name="FavoritesForm" 
+                 type="com.oreilly.strutsckbk.FavoritesForm"/>
+      <form-bean name="MyForm" 
+                 type="com.oreilly.strutsckbk.MyForm"/>
+   </form-beans>
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+
+    <action    path="/main"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/index.jsp"/>
+
+    <action    path="/admin/FavoriteLanguage"
+               name="MyForm"
+              scope="request"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/admin/favorite_language.jsp"/>
+
+    <action    path="/admin/FavoriteLanguage2"
+               name="MyForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/admin/favorite_language2.jsp"/>
+
+    <action    path="/admin/GetIdeOptions"
+               name="MyForm"
+              scope="session"
+               type="com.oreilly.strutsckbk.GetIdeOptionsAction"
+          parameter="/admin/favorite_language2.jsp"/>
+
+    <action    path="/admin/ViewFavoriteLanguage"
+               name="MyForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/admin/view_favorite_language.jsp"/>
+
+    <action    path="/admin/EditFavorites"
+               type="org.apache.struts.actions.ForwardAction"
+               name="FavoritesForm"
+              scope="request"
+          parameter="/admin/favorites.jsp"/>
+    <action    path="/admin/ViewFavorites"
+               type="org.apache.struts.actions.ForwardAction"
+               name="FavoritesForm"
+              scope="request"
+          parameter="/admin/view_favorites.jsp"/>
+
+  </action-mappings>
+   
+   <message-resources 
+     parameter="com.oreilly.strutsckbk.JscResources"
+     key="adminResources">
+   </message-resources>
+
+</struts-config>

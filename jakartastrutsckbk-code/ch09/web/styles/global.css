@@ -1,0 +1,10 @@
+p.alert { 
+color: #000099;
+font-weight: bold;
+background-color: #ffffcc;
+border-style: solid; 
+border-color: #ffb333;
+border-width: 1px;
+margin: 4px;
+padding: 3px;
+}

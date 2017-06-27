@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+    <form-beans>
+        <form-bean name="userForm" type="com.oroad.stxx.xform.JDOMForm"/>
+    </form-beans>
+
+    <global-exceptions>
+    </global-exceptions>
+
+    <global-forwards>
+    </global-forwards>
+
+    <action-mappings>
+        <action    path="/viewUserList"
+                  type="com.oreilly.strutsckbk.ch14.UserListAction">
+            <forward name="success" path="simple/viewUserList.dox"/>
+        </action>
+        
+        <action    path="/addUser"
+                   name="userForm"
+                  scope="request"
+                forward="simple/addUser.dox"
+        />
+
+        <action    path="/saveUser"
+                   type="com.oreilly.strutsckbk.ch14.SaveUserAction"
+                   name="userForm"
+                  scope="request">
+            <forward name="success" path="/viewUserList.do"/>
+        </action>
+    </action-mappings>
+
+    <message-resources parameter="ApplicationResources" 
+                         factory="com.oroad.stxx.util.PropertyMessageResourcesFactory"/>
+
+    <plug-in className="com.oreilly.strutsckbk.ch14.DataLoadPlugIn"/>
+                         
+    <plug-in className="com.oroad.stxx.plugin.StxxPlugin" >
+        <set-property property="pipeline-config"
+                         value="/WEB-INF/stxx-pipelines.xml" />
+        <set-property property="xmlform-models"
+                         value="/WEB-INF/xmlform-models.xml" />
+        <set-property property="xmlform-schema"
+                         value="" />
+    </plug-in>
+
+</struts-config>
+

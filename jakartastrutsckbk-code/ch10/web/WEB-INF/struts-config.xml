@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+    <form-beans>
+      <form-bean name="LoginForm" type="org.apache.struts.validator.DynaValidatorForm">
+        <form-property name="username" type="java.lang.String"/>
+        <form-property name="password" type="java.lang.String"/>
+      </form-bean>
+    </form-beans>
+
+	<global-forwards>
+		<forward name="home" path="/index.jsp" 
+			redirect="true"/>
+	</global-forwards>
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <action    path="/ContextRefresh"
+               type="com.oreilly.strutsckbk.ch10.ContextRefreshAction">
+        <forward name="success" path="/index.jsp"/>
+    </action>
+    <action    path="/Login"
+               type="com.oreilly.strutsckbk.ch10.LoginAction"
+              scope="request"
+               name="LoginForm"
+           validate="false"
+              input="/login.jsp">
+        <forward name="success" path="/login_success.jsp"/>
+    </action>
+    <action    path="/ViewUsers"
+               type="com.oreilly.strutsckbk.ch10.ViewUsersAction">
+        <forward name="success" path="/view_users.jsp"/>
+    </action>
+    <action    path="/ViewMyUsers"
+               type="com.oreilly.strutsckbk.ch10.ViewMyUsersAction">
+        <forward name="success" path="/view_my_users.jsp"/>
+    </action>
+    <!--
+    <action    path="/Logout"
+               type="com.oreilly.strutsckbk.ch08.LogoutAction"/>
+    -->
+
+  </action-mappings>
+
+  <message-resources 
+      parameter="ApplicationResources">
+  </message-resources>
+
+  <!--
+  <plug-in className="com.oreilly.strutsckbk.ch10.DigestingListPlugin">
+    <set-property property="key" value="provinces"/>
+    <set-property property="configPath" value="/WEB-INF/canadian-provinces.xml"/>
+    <set-property property="digesterPath" value="/WEB-INF/province-digester-rules.xml"/>
+  </plug-in>
+  -->
+  <plug-in className="org.apache.struts.plugins.DigestingPlugIn">
+    <set-property property="key" value="serverTypes"/>
+    <set-property property="configPath" value="/WEB-INF/server-types.xml"/>
+    <set-property property="digesterPath" value="/WEB-INF/lvb-digester-rules.xml"/>
+  </plug-in>
+  <plug-in className="com.oreilly.strutsckbk.ch10.DigestingListPlugin">
+    <set-property property="key" value="provinces"/>
+    <set-property property="configPath" value="/WEB-INF/canadian-provinces.xml"/>
+    <set-property property="digesterPath" value="/WEB-INF/province-digester-rules.xml"/>
+  </plug-in>
+  <plug-in className="com.oreilly.strutsckbk.ch10.ServiceFactoryPlugin">
+    <set-property property="securityService" 
+                     value="com.oreilly.strutsckbk.ch10.MemorySecurityService"/>
+  </plug-in>
+</struts-config>

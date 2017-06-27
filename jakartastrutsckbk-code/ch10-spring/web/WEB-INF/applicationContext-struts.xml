@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean  id="userDatabase" 
+           class="org.apache.struts.webapp.example.memory.MemoryUserDatabase" 
+           init-method="open"
+           destroy-method="close">
+        <property name="pathname">
+            <value>database.xml</value>
+        </property>
+    </bean>
+
+    <bean name="/Welcome" class="org.apache.struts.webapp.example.WelcomeAction">
+        <property name="userDatabase">
+            <ref bean="userDatabase"/>
+        </property>
+    </bean>
+    <bean     name="/SaveSubscription" 
+             class="org.apache.struts.webapp.example.SaveSubscriptionAction">
+        <property name="userDatabase">
+            <ref bean="userDatabase"/>
+        </property>
+    </bean>
+
+    <bean   name="/SaveRegistration" 
+           class="org.apache.struts.webapp.example.SaveRegistrationAction">
+        <property name="userDatabase">
+            <ref bean="userDatabase"/>
+        </property>
+    </bean>  
+  
+    <bean   name="/SubmitLogon" 
+           class="org.apache.struts.webapp.example.LogonAction">
+        <property name="userDatabase">
+            <ref bean="userDatabase"/>
+        </property>
+    </bean>
+
+</beans>

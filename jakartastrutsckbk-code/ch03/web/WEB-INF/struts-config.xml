@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<!--
+     This is the Struts configuration file for the example application,
+     using the proposed new syntax.
+-->
+
+
+<struts-config>
+   <form-beans>
+      <form-bean name="FavoritesForm" 
+                 type="com.oreilly.strutsckbk.FavoritesForm"/>
+      <form-bean name="MyForm" 
+                 type="com.oreilly.strutsckbk.MyForm"/>
+      <form-bean name="DevPollForm" type="org.apache.struts.action.DynaActionForm">
+         <form-property name="language" type="java.lang.String" />
+         <form-property name="ide" type="java.lang.String" />
+      </form-bean> 
+   </form-beans>
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+
+    <action    path="/main"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/index.jsp"/>
+
+    <action    path="/FavoriteLanguage"
+               name="MyForm"
+              scope="request"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/favorite_language.jsp"/>
+
+    <action    path="/FavoriteLanguage2"
+               name="MyForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/favorite_language2.jsp"/>
+
+    <action    path="/GetIdeOptions"
+               name="MyForm"
+              scope="session"
+               type="com.oreilly.strutsckbk.GetIdeOptionsAction">
+        <forward name="success" path="/FavoriteLanguage2.do"/>
+    </action>
+
+    <action    path="/ViewFavoriteLanguage"
+               name="MyForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/view_favorite_language.jsp"/>
+
+    <action    path="/EditFavorites"
+               type="org.apache.struts.actions.ForwardAction"
+               name="FavoritesForm"
+              scope="request"
+          parameter="/favorites.jsp"/>
+    <action    path="/ViewFavorites"
+               type="org.apache.struts.actions.ForwardAction"
+               name="FavoritesForm"
+              scope="request"
+          parameter="/view_favorites.jsp"/>
+
+    <action    path="/TakeDevPoll"
+               name="DevPollForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/lang_poll_1.jsp"/>
+
+    <action    path="/ProcessLanguageChoice"
+               name="DevPollForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/lang_poll_2.jsp"/>
+    <action    path="/ProcessIdeChoice"
+               name="DevPollForm"
+              scope="session"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/lang_poll_3.jsp"/>
+  </action-mappings>
+   
+   <message-resources 
+     parameter="com.oreilly.strutsckbk.JscResources">
+   </message-resources>
+
+</struts-config>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+    <form-beans>
+        <form-bean name="logonForm" type="org.apache.struts.action.DynaActionForm">
+            <form-property name="username" type="java.lang.String"/>
+            <form-property name="password" type="java.lang.String"/>
+        </form-bean>
+    </form-beans>
+
+	<global-forwards>
+        <forward name="welcome" path="/welcome.faces"/>
+        <forward name="logon" path="/logon.faces"/>
+		<forward name="home" path="/index.jsp" redirect="true"/>
+	</global-forwards>
+
+    <!-- ========== Action Mapping Definitions ============================== -->
+    <action-mappings>
+        <action    path="/Logon"
+                   name="logonForm"
+                  scope="request"
+                   type="com.oreilly.strutsckbk.ch14.LogonAction">
+            <forward name="success" path="welcome.faces"/>
+        </action>
+    </action-mappings>
+
+    <controller>
+        <set-property property="processorClass"
+            value="org.apache.struts.faces.application.FacesRequestProcessor"/>
+    </controller>
+
+    <message-resources parameter="ApplicationResources"/>
+
+</struts-config>

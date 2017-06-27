@@ -1,0 +1,3 @@
+    <action    path="/tour"
+            forward="/tour.htm">
+    </action>

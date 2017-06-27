@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+
+<pipeline-definitions>
+
+  <pipeline match="simple/*.dox">
+    <display-name>Simple XSLT</display-name>
+    <description>Performs simple XSLT transformations</description>
+    <transform type="html">
+        <param name="path" value="/xsl/{1}.xsl" />
+        <param name="render" value="server" />
+    </transform>
+  </pipeline>
+  
+  <pipeline match="jsp/*.dox">
+    <display-name>JSP/JSTL</display-name>
+    <description>Creates DOM and forwards to JSP</description>
+    <transform type="dom">
+        <param name="path" value="/{1}.jsp" />
+    </transform>
+  </pipeline>
+  
+  <pipeline match="template/*.dox">
+    <display-name>Custom Taglib</display-name>
+    <description>Uses XSLT to create custom tag library</description>
+    <transform type="html">
+        <param name="path" value="/template.xsl" />
+        <param name="page" value="{1}.xhtml" />
+        <param name="render" value="server" />
+    </transform>
+  </pipeline>
+
+  <pipeline match="xform/*.dox">
+    <display-name>XForm</display-name>
+    <description>Uses XForm via XMLForm</description>
+    <transform type="xform">
+        <param name="path" value="/{1}.xsl" />
+        <param name="xform" value="/{1}.xml" />
+        <param name="render" value="server" />
+    </transform>
+  </pipeline>
+  
+  <pipeline match="velocity/*.dox">
+    <display-name>Velocity</display-name>
+    <description>Transforms with Velocity and Anakia</description>
+    <transform type="velocity">
+        <param name="path" value="/{1}.vm" />
+    </transform>
+  </pipeline>
+ 
+  <pipeline match="browser/*.dox">
+    <display-name>Browser-Matched</display-name>
+    <description>
+        Chooses the transform based on what what web browser the client is
+        using.
+    </description>    
+    <transform type="html">
+        <param name="path" value="/{1}.xsl" />
+        <param name="render" value="server" />
+    </transform>
+    <transform type="html" when="MSIE">
+        <param name="path" value="/{1}_IE.xsl" />
+        <param name="render" value="client" />
+    </transform>
+  </pipeline>
+
+  <pipeline match="multiple/*.dox">
+    <display-name>Multiple XSLT</display-name>
+    <description>Transforms the XML with multiple XSLT files</description>
+    <transform type="html">
+        <param name="path" value="/{1}.xsl" />
+        <param name="path" value="common/insertBanner.xsl" />
+    </transform>
+  </pipeline>
+
+  <pipeline match="pdf/*.dox">
+    <display-name>PDF</display-name>
+    <description>
+        Transforms the XML into XSL-FO which is then rendered into
+        PDF.
+    </description>    
+    <transform type="pdf">
+        <param name="path" value="/{1}.xsl" />
+    </transform>
+  </pipeline>  
+
+</pipeline-definitions>

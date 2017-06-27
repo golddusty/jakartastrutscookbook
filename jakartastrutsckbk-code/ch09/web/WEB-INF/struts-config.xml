@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+    <form-beans>
+      <form-bean name="LoginForm" type="org.apache.struts.validator.DynaValidatorForm">
+        <form-property name="username" type="java.lang.String"/>
+        <form-property name="password" type="java.lang.String"/>
+      </form-bean>
+    </form-beans>
+
+    <!-- Global Exceptions -->
+    <global-exceptions>
+        <exception key="error.general" 
+                  type="java.lang.Exception"
+                  path="/error.jsp"/>    
+        <exception key="error.unknown.user" 
+                  type="com.oreilly.strutsckbk.ch09.UnknownUserException"
+               handler="com.oreilly.strutsckbk.ch09.CustomExceptionHandler"
+                  path="/securityError.jsp"/>    
+        <exception key="error.exception" 
+                  type="com.oreilly.strutsckbk.ch09.ErrorCodeException"
+               handler="com.oreilly.strutsckbk.ch09.ErrorCodeExceptionHandler"
+                  path="/ece_error.jsp"/>    
+        <exception key="error.exception" 
+                  type="com.oreilly.strutsckbk.ch09.CustomException"
+               handler="com.oreilly.strutsckbk.ch09.CustomExceptionHandler"
+                  path="/some_error_page.jsp"/>    
+    </global-exceptions>
+    
+    <!-- Global Forwards -->
+	<global-forwards>
+		<forward name="home" path="/index.jsp" 
+			redirect="true"/>
+		<forward name="success" path="/index.jsp" 
+			redirect="true"/>
+		<forward name="login" path="/Login.do" 
+			contextRelative="true" redirect="true"/>
+		<forward name="logout" path="/Logout.do" 
+			contextRelative="true" redirect="true"/>
+		<forward name="securityError" path="/securityError.jsp"/> 
+	</global-forwards>
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <action    path="/ViewLogin"
+               type="com.oreilly.strutsckbk.ch09.ViewLoginAction">
+        <forward name="success" path="/login.jsp"/>
+    </action>
+
+    <action    path="/Login"
+               type="com.oreilly.strutsckbk.ch09.LoginAction"
+              scope="request"
+               name="LoginForm"
+            validate="true"
+              input="/login.jsp">
+        <exception key="error.password.match" 
+                  type="com.oreilly.strutsckbk.ch09.PasswordMatchException"/>
+        <forward name="success" path="/login_success.jsp" redirect="true"/>
+    </action>
+
+    <action    path="/ValidatingLogin"
+               type="com.oreilly.strutsckbk.ch09.ValidatingLoginAction"
+              scope="request"
+               name="LoginForm"
+            validate="false"
+              input="/validating_login.jsp">
+        <forward name="success" path="/login_success.jsp" redirect="true"/>
+    </action>
+
+    <action    path="/TestErrorCode"
+               type="com.oreilly.strutsckbk.ch09.TestAction"/>
+
+    <action    path="/Logout"
+               type="com.oreilly.strutsckbk.ch09.LogoutAction"/>
+
+  </action-mappings>
+
+  <message-resources 
+      parameter="ApplicationResources">
+  </message-resources>
+
+    <!-- Plug Ins -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames"
+                         value="/WEB-INF/validator-rules.xml,
+                                /WEB-INF/validation.xml"/>
+    </plug-in>
+</struts-config>

@@ -1,0 +1,12 @@
+<provinces>
+  <province name="Alberta" capital="Edmonton" established="1905"/>    
+  <province name="British Columbia" capital="Victoria" established="1871"/>    
+  <province name="Manitoba" capital="Winnipeg" established="1870"/>    
+  <province name="New Brunswick" capital="Fredericton" established="1867"/>    
+  <province name="Newfoundland and Labrador" capital="St. John's" established="1949"/>    
+  <province name="Nova Scotia" capital="Halifax" established="1867"/>    
+  <province name="Ontario" capital="Toronto" established="1867"/>    
+  <province name="Prince Edward Island" capital="Charlottetown" established="1873"/>    
+  <province name="Quebec" capital="Quebec City" established="1867"/>    
+  <province name="Saskatchewan" capital="Regina" established="1905"/>    
+</provinces>

@@ -1,0 +1,94 @@
+<project name="jsc-ch14-stxx" default="dist" basedir=".">
+  <description>
+  	Struts Cookbook Chapter 14 - Stxx Sample
+  </description>
+
+  <!-- Enable access to environment variables -->
+  <property environment="env"/>
+
+  <!-- Set to use JDK 1.4 -->
+  <property name="build.compiler" value="javac1.4"/>
+
+  <!-- set global properties for this build -->
+  <property name="src.dir" location="src"/>
+  <property name="build.dir" location="build"/>
+  <property name="dist.dir"  location="dist"/>
+  <property name="server.dir" location="${env.CATALINA_HOME}"/>
+  <property name="servlet.jar" location="${server.dir}/common/lib/servlet-api.jar"/>
+  <property name="jsp.jar" location="${server.dir}/common/lib/jsp-api.jar"/>
+  <property name="struts.dist.dir" location="../lib"/>
+
+  <!-- Struts -->
+  <fileset id="struts.lib.files" dir="${struts.dist.dir}">
+   	<include name="**/*.jar"/>
+  </fileset>
+  <path id="struts.classpath">
+   	<fileset refid="struts.lib.files"/>
+  </path>
+
+  <path id="project.class.path">
+    <pathelement location="${servlet.jar}"/>
+    <pathelement location="${jsp.jar}"/>
+    <path refid="struts.classpath"/>
+  </path>
+
+  <!-- Deployment Properties -->
+  <property name="deploy.dir" location="${server.dir}/webapps"/>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build.dir} and ${dist.dir} directory trees -->
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+  </target>
+
+  <target name="init">
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src.dir} into ${build.dir} -->
+    <javac srcdir="${src.dir}" destdir="${build.dir}" deprecation="on" debug="on">
+	  <classpath>
+	  	<pathelement path="${classpath}"/>
+	  	<pathelement location="${servlet.jar}"/>
+	  	<pathelement location="${jsp.jar}"/>
+   	    <fileset dir="${struts.dist.dir}">
+   	      <include name="**/*.jar"/>
+   	    </fileset>
+      </classpath>
+    </javac>
+
+    <copy todir="${build.dir}">
+      <fileset dir="${src.dir}">
+        <include name="**/*.properties"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="dist" depends="compile"
+        description="generate the distribution" >
+
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist.dir}"/>
+
+    <!-- Put everything in ${build} into the war file -->
+	<war destfile="${dist.dir}/${ant.project.name}.war" webxml="web/WEB-INF/web.xml">
+	  <fileset dir="web" excludes="**/web.xml"/>
+      <lib dir="${struts.dist.dir}">
+        <include name="**/*.jar"/>
+        <include name="**/*.tld"/>
+      </lib>
+      <classes dir="${build.dir}"/>
+    </war>
+  </target>
+
+  <!-- Deploy the application by copying it to the deployment directory -->
+  <target name="deploy" depends="dist"
+  		description="deploy to server" >
+  	<unjar src="${dist.dir}/${ant.project.name}.war" dest="${deploy.dir}/${ant.project.name}"/>
+  </target>
+
+</project>

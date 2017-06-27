@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="TestForm" type="org.apache.struts.action.DynaActionForm">
+      <form-property name="name" type="java.lang.String"/>
+    </form-bean>
+    <form-bean name="AddForm" type="org.apache.struts.action.DynaActionForm">
+      <form-property name="name" type="java.lang.String"/>
+      <form-property name="dispatchedTo" type="java.lang.String"/>
+    </form-bean>
+    <form-bean name="ChangeForm" type="org.apache.struts.action.DynaActionForm">
+      <form-property name="name" type="java.lang.String"/>
+      <form-property name="dispatchedTo" type="java.lang.String"/>
+    </form-bean>
+    <form-bean name="RemoveForm" type="org.apache.struts.action.DynaActionForm">
+      <form-property name="name" type="java.lang.String"/>
+      <form-property name="dispatchedTo" type="java.lang.String"/>
+    </form-bean>
+  </form-beans>
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <action    path="/IncludeContent"
+               type="org.apache.struts.actions.IncludeAction"
+          parameter="/LegacyIncludeServlet"/>
+<!--
+    <action    path="/ChainActionTest"
+               type="com.oreilly.strutsckbk.ch06.ChainAction">
+        <forward name="success" path="/ForwardActionTest.do?inline=true"/>
+    </action>
+-->
+    <action    path="/ChainActionTest"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/ForwardActionTest.do?inline=true"/>
+    <action    path="/ForwardActionTest"
+               type="org.apache.struts.actions.ForwardAction"
+          parameter="/forward_test.jsp"/>
+    <action    path="/DispatchActionTest"
+               name="TestForm"
+              scope="request"
+               type="com.oreilly.strutsckbk.ch06.MyDispatchAction"
+          parameter="methodToCall">
+      <forward name="success" path="/dispatch_test.jsp"/>
+    </action>
+    <action    path="/LookupDispatchActionTest"
+               name="TestForm"
+               type="com.oreilly.strutsckbk.ch06.MyLookupDispatchAction"
+          parameter="methodToCall">
+      <forward name="success" path="/lookup_dispatch_test.jsp"/>
+    </action>
+
+    <!-- Mapping Actions -->
+    <action    path="/AddAction"
+               name="AddForm"
+               type="com.oreilly.strutsckbk.ch06.MyMappingDispatchAction"
+          parameter="create">
+      <forward name="success" path="/mapping_dispatch_test.jsp"/>
+    </action>
+    <action    path="/ChangeAction"
+               name="ChangeForm"
+               type="com.oreilly.strutsckbk.ch06.MyMappingDispatchAction"
+          parameter="update">
+      <forward name="success" path="/mapping_dispatch_test.jsp"/>
+    </action>
+    <action    path="/RemoveAction"
+               name="RemoveForm"
+               type="com.oreilly.strutsckbk.ch06.MyMappingDispatchAction"
+          parameter="delete">
+      <forward name="success" path="/mapping_dispatch_test.jsp"/>
+    </action>
+
+    <action    path="/ResponseWriterTest"
+               type="com.oreilly.strutsckbk.ch06.ResponseWriterAction"/>
+
+    <!-- Switch Module Action -->
+    <action    path="/SwitchModule"
+               type="org.apache.struts.actions.SwitchAction"/>
+  </action-mappings>
+
+  <message-resources 
+    parameter="com.oreilly.strutsckbk.ch06.JscResources">
+  </message-resources>
+<!--
+   
+   <plug-in className="com.oreilly.strutsckbk.ch04.ConstantsPlugin"/>
+   <plug-in className="net.sf.navigator.menu.MenuPlugIn">
+     <set-property property="menuConfig" 
+       value="/WEB-INF/menu-config.xml"/>
+   </plug-in>
+   -->
+</struts-config>

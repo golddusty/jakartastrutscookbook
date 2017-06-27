@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE form-definition PUBLIC "-//FormDef//FormDef Form Definition//EN" "form-defs_0_5.dtd">
+<form-definition>
+<!--
+    <formdef-config
+        formType="org.apache.struts.validator.DynaValidatorForm"/>
+-->
+    <formset>
+        <form name="EmployeeFdForm"
+            beanType="com.oreilly.strutsckbk.ch05.EmployeeFd"/>
+   </formset>
+</form-definition>            

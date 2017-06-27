@@ -1,0 +1,11 @@
+<document>
+  <model name="userForm">
+    <user>
+      <name>
+          <firstname />
+          <lastname />
+      </name>
+      <email />
+    </user>    
+  </model>
+</document>            
